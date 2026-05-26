@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Generate SBOM') {
+            steps {
+                // Example of generating the base SBOM. 
+                // Actual command depends on the tool used (e.g., cdxgen, syft)
+                sh 'mkdir -p sbom/generated sbom/final'
+                sh 'cdxgen -o sbom/generated/bom.cdx.json .'
+            }
+        }
+        
+        stage('Merge Manual Components') {
+            steps {
+                // Running the python script to merge the manual components JSON
+                sh '''
+                    python3 scripts/merge_manual_components.py \
+                        --base sbom/generated/bom.cdx.json \
+                        --manual sbom/manual-components.json \
+                        --output sbom/final/bom.final.cdx.json
+                '''
+            }
+        }
+        
+        stage('Validate SBOM') {
+            steps {
+                // Ensure the final file exists and contains basic valid JSON structure
+                sh 'cat sbom/final/bom.final.cdx.json | grep "bomFormat"'
+            }
+        }
+    }
+    
+    post {
+        always {
+            stage('Archive Artifacts') {
+                // Save the final SBOM as an artifact for Security / Dependency-Track
+                archiveArtifacts artifacts: 'sbom/final/bom.final.cdx.json', allowEmptyArchive: false
+            }
+        }
+    }
+}

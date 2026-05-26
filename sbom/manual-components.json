@@ -1,0 +1,49 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:generic/playwright-custom-webkit@18.4",
+      "type": "framework",
+      "name": "playwright-custom-webkit",
+      "version": "18.4",
+      "supplier": {
+        "name": "Microsoft/Apple"
+      },
+      "description": "Custom build of WebKit (Native/C++) used by Playwright browsers",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:generic/playwright-custom-webkit@18.4",
+      "properties": [
+        {
+          "name": "manual-injection",
+          "value": "true"
+        },
+        {
+          "name": "reason",
+          "value": "C++ Native browser binary not managed by package managers"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:generic/internal-cpp-helper@1.0.0",
+      "type": "library",
+      "name": "internal-cpp-helper",
+      "version": "1.0.0",
+      "description": "Demo manual C++ component included via third_party folder",
+      "purl": "pkg:generic/internal-cpp-helper@1.0.0",
+      "properties": [
+        {
+          "name": "manual-injection",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}

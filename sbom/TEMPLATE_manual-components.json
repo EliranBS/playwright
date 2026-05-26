@@ -1,0 +1,23 @@
+{
+  "bom-ref": "manual:library:example-lib:1.0.0",
+  "type": "library",
+  "name": "example-lib",
+  "version": "1.0.0",
+  "supplier": {
+    "name": "Organization Name"
+  },
+  "description": "Short description of the component",
+  "licenses": [
+    {
+      "license": {
+        "id": "MIT"
+      }
+    }
+  ],
+  "properties": [
+    {
+      "name": "source-path",
+      "value": "path/to/component/in/repo"
+    }
+  ]
+}
